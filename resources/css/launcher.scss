@@ -1,0 +1,260 @@
+/* Copyright (c) 2019, Nordic Semiconductor ASA
+ *
+ * All rights reserved.
+ *
+ * Use in source and binary forms, redistribution in binary form only, with
+ * or without modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * 1. Redistributions in binary form, except as embedded into a Nordic
+ *    Semiconductor ASA integrated circuit in a product or a software update for
+ *    such product, must reproduce the above copyright notice, this list of
+ *    conditions and the following disclaimer in the documentation and/or other
+ *    materials provided with the distribution.
+ *
+ * 2. Neither the name of Nordic Semiconductor ASA nor the names of its
+ *    contributors may be used to endorse or promote products derived from this
+ *    software without specific prior written permission.
+ *
+ * 3. This software, with or without modification, must only be used with a Nordic
+ *    Semiconductor ASA integrated circuit.
+ *
+ * 4. Any software provided in binary form under this license must not be reverse
+ *    engineered, decompiled, modified and/or disassembled.
+ *
+ * THIS SOFTWARE IS PROVIDED BY NORDIC SEMICONDUCTOR ASA "AS IS" AND ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY, NONINFRINGEMENT, AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL NORDIC SEMICONDUCTOR ASA OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
+ * TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+ * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+@import "~@mdi/font/css/materialdesignicons.min.css";
+
+$roboto-font-path: "~roboto-fontface/fonts" !default;
+@import "~roboto-fontface/css/roboto/sass/roboto-fontface";
+
+$font-family-sans-serif: Roboto;
+$theme-colors: (
+    "primary": #00A9CE, // Nordic primary blue
+);
+$enable-transitions: false;
+$enable-rounded: false;
+$body-bg: #d9e1e2;
+@import "~bootstrap/scss/bootstrap";
+
+@import "./pretty-scrollbar";
+
+body {
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
+    cursor: default;
+}
+
+#webapp {
+    display: grid;
+    grid-template-rows: 0fr 1fr;
+    height: 100vh;
+
+    .nav {
+        background-color: theme-color("primary");
+        padding: 0.5rem 2rem;
+        align-items: center;
+
+        .nav-link {
+            height: 3rem;
+
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 300;
+            align-items: center;
+
+            display: flex;
+
+            &.active {
+                font-weight: bold;
+                cursor: default;
+            }
+        }
+
+        .core19-logo {
+            height: 2.5rem;
+        }
+    }
+
+    .tab-content {
+        @extend %pretty-scrollbar;
+        padding: 2rem;
+
+        #launcher-tabpane-apps {
+            margin-top: -1rem;
+        }
+    }
+}
+
+.core-app-icon {
+    position: relative;
+
+
+    img,.icon-replacement {
+        height: 48px;
+        width: 48px;
+    }
+
+    .icon-replacement {
+        border-radius: 7px;
+        background: #e6f8ff;
+    }
+
+    // Transform old primary color to match brand.
+    &.old-app-icon {
+        filter: hue-rotate(-10deg) brightness(106%);
+    }
+
+    .mdi {
+        position: absolute;
+        top: 22px;
+        left: 27px;
+        font-size: 20px;
+    }
+
+    .mdi-alert {
+        color: darkorange;
+    }
+
+    .mdi-information {
+        color: theme-color("primary");
+    }
+
+    .alert-icon-bg {
+        position: absolute;
+        width: 8px;
+        height: 12px;
+        top: 32px;
+        left: 34px;
+        background-color: white;
+    }
+}
+
+.wide-btns > .btn {
+    min-width: 10ch;
+}
+
+.btn-toolbar {
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: 0.75em;
+}
+
+.btn {
+    line-height: 1em;
+}
+
+.ellipsize-left {
+    direction: rtl;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.card + .card {
+    margin-top: 1rem;
+}
+
+#app-sources .row + .row {
+    margin-top: 1rem;
+}
+
+#app-sources .item-name {
+    font-weight: 500;
+    font-size: 90%;
+}
+
+.modal-title {
+    font-size: 120%;
+}
+
+.h4, .h5 {
+    font-weight: 400;
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-footer {
+    border-top: none;
+}
+
+.modal-content {
+    padding: 1rem;
+}
+
+.text-muted-more {
+    @extend .text-muted;
+    color: lighten($color: $text-muted, $amount: 30%)!important;
+}
+
+
+.dropdown-menu:empty {
+    @extend .text-muted-more;
+    @extend .small;
+    text-align: center;
+
+    &::after {
+        content: 'No actions available';
+    }
+}
+
+.release-notes {
+    @extend %pretty-scrollbar;
+    h2 {
+        font-size: 1.25rem;
+    }
+    h3 {
+        font-size: 1rem;
+    }
+}
+
+
+.filterbox {
+    > * {
+        margin-left: 0.75em;
+    }
+    :first-child {
+        margin-left: 0;
+    }
+
+    .btn .mdi {
+        margin-right: 0.25rem;
+    }
+    .btn:not(:hover) {
+        background: white;
+        color: $text-muted;
+    }
+    .dropdown-toggle::after {
+        display: none;
+    }
+    .form-control {
+        line-height: 1em;
+        height: initial !important;
+        width: initial !important;
+        border-color: $secondary;
+        padding: 0.29rem 0.75rem;
+    }
+}
+
+.user-data-policy {
+    overflow-y: scroll;
+    height: 40vh;
+}
+
+.dropdown-toggle:empty::after {
+    position: relative;
+    top: 2px;
+}
